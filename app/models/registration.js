@@ -58,6 +58,17 @@ class Model {
       callback(null, registrationData);
     }
   }
+
+  /**
+   * @description     : It uses to login the registered user
+   * @param           : data, callback
+  */
+   login = (data, callback) => {
+    RegistrationModel.findOne({ email: data.email })
+      .then((user) => {
+        callback(null, user);
+      });
+  }
 }
 
 module.exports = new Model();

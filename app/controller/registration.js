@@ -5,7 +5,7 @@
  * @author        : Gautam Biswal <gautam971997@gmail.com>
 */
 const services = require('../services/registration');
-const { authSchema } = require('../utility/helper');
+const { authSchema, generatingToken } = require('../utility/helper');
 
 /**
  * @description    : This class has two methods to create and login of user
@@ -51,6 +51,39 @@ class Controller {
       });
     } catch (err) {
       res.status(500).send({
+        success: false,
+        message: 'Internal server error',
+      });
+    }
+  }
+
+  /**
+   * @description   : login to bookstore
+   * @param         : httpRequest and httpResponse
+   * @method        : services file method for login having an object and callback
+  */
+   login = (req, res) => {
+    try {
+      const loginCredentials = {
+        email: req.body.email,
+        password: req.body.password,
+      };
+      services.login(loginCredentials, (error, data) => {
+        if (error) {
+          return res.status(400).send({
+            success: false,
+            message: 'login failed',
+            error,
+          });
+        }
+        return res.status(200).send({
+          success: true,
+          message: 'logged in successfully',
+          token: generatingToken(data),
+        });
+      });
+    } catch (err) {
+      return res.status(500).send({
         success: false,
         message: 'Internal server error',
       });
