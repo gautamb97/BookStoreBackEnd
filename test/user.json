@@ -1,0 +1,23 @@
+{
+    "user": {
+        "registration": {
+            "firstName": "Virat",
+            "lastName": "Singh",
+            "email": "virat123@gmail.com",
+            "password": "Virat123#",
+            "role": "user"
+        },
+        "adminRegistration": {
+            "firstName": "Soham",
+            "lastName": "Singh",
+            "email": "soham123@gmail.com",
+            "password": "Soham123#",
+            "role": "admin"
+        },
+        "registrationWithImproperDetails": {
+            "firstName": "Virat",
+            "email": "virat123@gmail.com",
+            "password": "Virat123#"
+        }
+    }
+}
