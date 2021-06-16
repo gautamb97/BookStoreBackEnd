@@ -5,7 +5,9 @@
  * @file          : helper.js
  * @author        : Gautam Biswal <gautam971997@gmail.com>
 */
+require('dotenv').config();
 const Joi = require('joi');
+const jwt = require('jsonwebtoken');
 
 /**
  * @description   : validating all parameters we are getting from the user for registration
@@ -41,7 +43,19 @@ const setRole = (role) => {
     }
 }
 
+/**
+ * @description   : creating token using jsonwebtoken module
+ * @param {data} as data which comes from the body of postmen
+ * @module        : jwt
+*/
+const generatingToken = (data) => {
+    console.log(data);
+    const token = jwt.sign({ email: data.email, id: data._id, role: data.role }, process.env.SECRET, { expiresIn: '24h' });
+    return token;
+  };
+
 module.exports = {
     authSchema,
-    setRole
+    setRole,
+    generatingToken
 }
