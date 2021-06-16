@@ -10,4 +10,6 @@ module.exports = (app) => {
     app.post('/user/registration', helper.setRole('user'), controller.register);
 
     app.post('/admin/registration', helper.setRole('admin'), controller.register);
+
+    app.post('/login', controller.login);
 }
