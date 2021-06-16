@@ -1,0 +1,104 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "version": "1.0.0",
+        "title": "BookStoreApp",
+        "description": "This app is created for selling or buying books"
+    },
+    "host": "localhost:3000",
+    "tags": [
+        {
+            "name": "Book Store",
+            "description": "API for books in the system"
+        }
+    ],
+    "schemes": [
+        "http"
+    ],
+    "consumes": [
+        "application/json"
+    ],
+    "produces": [
+        "application/json"
+    ],
+    "paths": {
+        "/admin/registration": {
+            "post": {
+                "tags": [
+                    "BookStore"
+                ],
+                "summary": "Register Admin in Book Store",
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "description": "Admin Registration"
+                    }
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    },
+                    "400": {
+                        "description": "Failed to register"
+                    }
+                }
+            }
+        },
+        "/user/registration": {
+            "post": {
+                "tags": [
+                    "BookStore"
+                ],
+                "summary": "Register User in Book Store",
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "description": "User Registration"
+                    }
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    },
+                    "400": {
+                        "description": "Failed to register"
+                    }
+                }
+            }
+        },
+        "/login": {
+            "post": {
+                "tags": [
+                    "BookStore"
+                ],
+                "summary": "login to BookStore",
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "description": "login"
+                    }
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "logged in successfully"
+                    },
+                    "400": {
+                        "description": "login failed"
+                    }
+                }
+            }
+        }
+    }
+}
