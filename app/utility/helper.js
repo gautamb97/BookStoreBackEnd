@@ -34,6 +34,14 @@ const authSchema = Joi.object({
     .required()
 });
 
+const setRole = (role) => {
+    return (req, res, next) => {
+        req.role = role;
+        next();
+    }
+}
+
 module.exports = {
-    authSchema
+    authSchema,
+    setRole
 }
