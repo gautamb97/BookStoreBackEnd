@@ -7,6 +7,7 @@
 const express = require('express');
 require('dotenv').config();
 require('./config/dbConfig');
+const logger = require('./app/logger/logger')
 
 const app = express();
 
@@ -19,6 +20,6 @@ app.get('/', (req, res) => {
 });
 
 app.listen(process.env.PORT, () => {
-  console.log('Server is listening on port 3000');
+  logger.log('info','Server is listening on port 3000');
 });
 
