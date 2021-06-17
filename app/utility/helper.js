@@ -85,6 +85,28 @@ class Helper {
     }
   };
 
+   /**
+ * @description   : veryfying token using jsonwebtoken module
+ * @param {data}  : it contains the token which we want to verify and then sending to controller
+ * @module        : jwt
+*/
+verifyRole = (req, res, next) => {
+  try {
+    const tokenVerification = jwt.verify(req.headers.token, process.env.SECRET);
+      if (tokenVerification.role === 'admin') {
+        req.userData = tokenVerification;
+        const userId = tokenVerification.id;
+        req.userId = userId;
+      }
+      next();
+  } catch (err) {
+    res.status(401).send({
+      err: 'Unauthorized user',
+    });
+  }
+};
+
+
   /**
  * @description   : sending an email through nodemailer
  * @module        : nodemailer, ejs
