@@ -18,6 +18,14 @@
             "firstName": "Virat",
             "email": "virat123@gmail.com",
             "password": "Virat123#"
+        },
+        "login": {
+            "email": "www.gautam971997@gmail.com",
+            "password": "Gautam123#"
+        },
+        "loginWithImproperDetails": {
+            "email": "virat123@gmail.com",
+            "password": "virat12"
         }
     }
 }
