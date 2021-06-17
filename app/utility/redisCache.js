@@ -17,5 +17,28 @@ class Redis {
         client.setex(KEY, 7200, JSON.stringify(data));
     }
 
+    /**
+ *@description      : it is used get data from the redis db for caching
+ *@param {*} req
+ *@param  {*} res
+ *@param {*} next
+*/
+redisCache(req, res, next) {
+    client.get('books', (err, books) => {
+      if (err) throw err;
+  
+      if (books !== null) {
+        console.log('books fetch from redis');
+        res.send({
+          succes: true,
+          message: 'fetching from redis',
+          data: JSON.parse(books),
+        });
+      } else {
+        next();
+      }
+    });
+  }
+
 }
 module.exports = new Redis();
