@@ -81,6 +81,52 @@ class BookController {
       });
     }
   }
+
+  /**
+   * @description : It is updating an existing note in fundooNotes for particular user.
+   * @param {httprequest} req
+   * @param {httpresponse} res
+   * @method       : updateNote from service.js
+  */
+   updateBook = (req, res) => {
+    try {
+        const bookDetails = {
+            author: req.body.author,
+            title: req.body.title,
+            image: req.body.image,
+            quantity: req.body.quantity,
+            price: req.body.price,
+            description: req.body.description,
+            bookId: req.params.bookId,
+          };
+      const validationResult = validation.updateBookProperty.validate(bookDetails);
+      if (validationResult.error) {
+        res.status(400).send({
+          success: false,
+          message: 'the field can not be empty which you want to update in note',
+          data: validationResult,
+        });
+        return;
+      }
+      services.updateBook(bookDetails, (error) => {
+        if (error) {
+          return res.status(400).send({
+            success: false,
+            message: 'Unable to update book',
+          });
+        }
+        return res.status(200).send({
+          success: true,
+          message: 'book updated successfully',
+        });
+      });
+    } catch (err) {
+      res.status(500).send({
+        success: false,
+        message: 'Internal server error',
+      });
+    }
+  }
 }
 
 module.exports = new BookController();

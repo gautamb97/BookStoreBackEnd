@@ -49,8 +49,27 @@ class BooksModel {
   */
    getAllBooks = (data, callback) => {
     BookModel.find()
-      .then((notes) => {
-        callback(null, notes);
+      .then((books) => {
+        callback(null, books);
+      });
+  }
+
+  /**
+   * @description   : It updating the existing book for the perticular user
+   * @param {*} data
+   * @param {*} callback
+  */
+   updateBook = (data, callback) => {
+    BookModel.findByIdAndUpdate(data.bookId, {
+        author: data.author,
+        title: data.title,
+        image: data.image,
+        quantity: data.quantity,
+        price: data.price,
+        description: data.description,
+    })
+      .then((book) => {
+        callback(null, book);
       });
   }
 
