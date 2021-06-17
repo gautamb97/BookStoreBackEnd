@@ -11,6 +11,7 @@ const jwt = require('jsonwebtoken');
 const ejs = require('ejs');
 const nodemailer = require('nodemailer');
 const redis = require('redis');
+const models = require('../models/registration')
 
 const client = redis.createClient();
 const logger = require('../logger/logger');
@@ -105,6 +106,25 @@ verifyRole = (req, res, next) => {
     });
   }
 };
+
+checkRole = (role) => {
+  return (req, res, next) => {
+    const loginData = {
+      email: req.body.email,
+      password: req.body.password
+    }
+    models.login(loginData, (error, data) => {
+      if(role === data.role) {
+        next();
+        }
+        else {
+          res.status(401).send({
+            err: 'Authentication failed',
+          });
+        }
+    })
+  }
+}
 
 
   /**
