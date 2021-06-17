@@ -4,6 +4,7 @@
  * @author        : Gautam Biswal <gautam971997@gmail.com>
 */
 const controller = require('../controller/registration');
+const booksController = require('../controller/books')
 const helper = require('../utility/helper');
 module.exports = (app) => {
 
@@ -16,4 +17,6 @@ module.exports = (app) => {
     app.post('/forgotPassword', controller.forgotPassword);
 
     app.post('/resetPassword', helper.verifyToken, controller.resetPassword);
+
+    app.post('/books', helper.verifyRole, booksController.addBook)
 }
