@@ -5,7 +5,7 @@
  * @author        : Gautam Biswal <gautam971997@gmail.com>
 */
 const services = require('../services/registration');
-const { authSchema, generatingToken } = require('../utility/helper');
+const helper = require('../utility/helper');
 
 /**
  * @description    : This class has two methods to create and login of user
@@ -28,7 +28,7 @@ class Controller {
         password: req.body.password,
         role: req.role
       };
-      const validationResult = authSchema.validate(registrationDetails);
+      const validationResult = helper.authSchema.validate(registrationDetails);
       if (validationResult.error) {
         res.status(400).send({
           success: false,
@@ -79,7 +79,7 @@ class Controller {
         return res.status(200).send({
           success: true,
           message: 'logged in successfully',
-          token: generatingToken(data),
+          token: helper.generatingToken(data),
         });
       });
     } catch (err) {
