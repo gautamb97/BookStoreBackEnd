@@ -24,4 +24,6 @@ module.exports = (app) => {
     app.get('/books', helper.verifyToken, redis.redisCache , booksController.getAllBooks)
 
     app.put('/books/:bookId', helper.verifyRole, booksController.updateBook)
+
+    app.delete('/books/:bookId', helper.verifyRole, booksController.deleteBook)
 }
