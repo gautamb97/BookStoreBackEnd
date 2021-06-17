@@ -10,6 +10,9 @@ const Joi = require('joi');
 const jwt = require('jsonwebtoken');
 const ejs = require('ejs');
 const nodemailer = require('nodemailer');
+const redis = require('redis');
+
+const client = redis.createClient();
 const logger = require('../logger/logger');
 
 class Helper {
@@ -53,8 +56,33 @@ class Helper {
    * @module        : jwt
   */
   generatingToken = (data) => {
-    const token = jwt.sign({ email: data.email, id: data._id, role: data.role }, process.env.SECRET, { expiresIn: '24h' });
+    const token = jwt.sign({ email: data.email, id: data._id, role: data.role }, process.env.SECRET, { expiresIn: '24d' });
+    client.setex('token', 7200, token);
     return token;
+  };
+
+  /**
+ * @description   : veryfying token using jsonwebtoken module
+ * @param {data}  : it contains the token which we want to verify and then sending to controller
+ * @module        : jwt
+*/
+  verifyToken = (req, res, next) => {
+    try {
+      const tokenVerification = jwt.verify(req.headers.token, process.env.SECRET);
+      client.get('token', (err, result) => {
+        if (err) throw err;
+        if (req.headers.token === result) {
+          req.userData = tokenVerification;
+          const userId = tokenVerification.id;
+          req.userId = userId;
+        }
+        next();
+      });
+    } catch (err) {
+      res.status(401).send({
+        err: 'Unauthorized user',
+      });
+    }
   };
 
   /**
