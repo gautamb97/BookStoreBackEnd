@@ -4,7 +4,8 @@
  * @author        : Gautam Biswal <gautam971997@gmail.com>
 */
 const controller = require('../controller/registration');
-const booksController = require('../controller/books')
+const booksController = require('../controller/books');
+const redis = require('../utility/redisCache');
 const helper = require('../utility/helper');
 module.exports = (app) => {
 
@@ -18,5 +19,7 @@ module.exports = (app) => {
 
     app.post('/resetPassword', helper.verifyToken, controller.resetPassword);
 
-    app.post('/books', helper.verifyRole, booksController.addBook)
+    app.post('/books', helper.verifyRole, booksController.addBook);
+
+    app.get('/books', helper.verifyToken, redis.redisCache ,booksController.getAllBooks)
 }
