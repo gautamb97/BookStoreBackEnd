@@ -73,6 +73,18 @@ class BooksModel {
       });
   }
 
+  /**
+   * @description   : It delete the existing book from the db
+   * @param {*} data
+   * @param {*} callback
+  */
+   deleteBook = (data, callback) => {
+    BookModel.findByIdAndRemove(data)
+      .then((book) => {
+        callback(null, book);
+      });
+  }
+
 }
 
 module.exports = new BooksModel();

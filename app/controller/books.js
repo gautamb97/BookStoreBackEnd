@@ -127,6 +127,35 @@ class BookController {
       });
     }
   }
+
+  /**
+   * @description : It is deleting an existing book from book store
+   * @param {httprequest} req
+   * @param {httpresponse} res
+   * @method       : deleteBook from service.js
+  */
+   deleteBook = (req, res) => {
+    try {
+      services.deleteBook(req.params.noteId, (error, result) => {
+        if (error) {
+          return res.status(400).send({
+            success: false,
+            message: 'Unable to delete the book',
+          });
+        }
+        return res.status(200).send({
+          success: true,
+          message: 'book deleted successfully',
+          result,
+        });
+      });
+    } catch (err) {
+      res.status(500).send({
+        success: false,
+        message: 'Internal server error',
+      });
+    }
+  }
 }
 
 module.exports = new BookController();

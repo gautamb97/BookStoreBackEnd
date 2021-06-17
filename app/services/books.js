@@ -42,6 +42,15 @@ class BookService {
     updateBook = (data, callback) => {
         models.updateBook(data, callback)
     }
+
+    /**
+   * @description   : It is used to delete an existing book taking data from controller
+   *                  and sending to models
+   * @param {data}  : it contains data which we are passing from body
+  */
+  deleteBook = (data, callback) => {
+    models.deleteBook(data, callback)
+  }
 }
 
 module.exports = new BookService();
