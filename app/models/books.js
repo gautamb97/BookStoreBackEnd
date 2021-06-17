@@ -42,6 +42,18 @@ class BooksModel {
       });
   }
 
+  /**
+   * @description   : It find all the existing books
+   * @param {*} data
+   * @param {*} callback
+  */
+   getAllBooks = (data, callback) => {
+    BookModel.find()
+      .then((notes) => {
+        callback(null, notes);
+      });
+  }
+
 }
 
 module.exports = new BooksModel();

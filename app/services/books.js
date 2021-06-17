@@ -4,6 +4,7 @@
  * @author        : Gautam Biswal <gautam971997@gmail.com>
 */
 const models = require('../models/books');
+const redis = require('../utility/redisCache');
 
 class BookService {
   /**
@@ -12,6 +13,25 @@ class BookService {
   */
   addBook = (data, callback) => {
     models.addBook(data, callback)
+  }
+
+  /**
+   * @description   : It is used to find all existing books taking data from controller
+   *                  and sending to models
+   * @param {data}  : it contains data which we are passing from body
+   * @returns       : notes which we are fetching
+  */
+   getAllBooks = (data, callback) => {
+    const KEY = 'books';
+    models.getAllBooks(data, (error, result) => {
+      console.log('comming to service');
+      if (error) {
+        callback(error, null);
+      } else {
+        redis.setRedis(KEY, result);
+        callback(null, result);
+      }
+    });
   }
 }
 
