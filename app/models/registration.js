@@ -13,7 +13,7 @@ const registrationSchema = mongoose.Schema({
   lastName: { type: String, required: true },
   email: { type: String, required: true, unique: true },
   password: { type: String, required: true },
-  role: [{ type: String, required: true}]
+  role: { type: String, required: true}
 }, {
   timestamps: true, versionKey: false
 });
@@ -67,6 +67,17 @@ class Model {
     RegistrationModel.findOne({ email: data.email })
       .then((user) => {
         callback(null, user);
+      });
+  }
+
+  /**
+   * @description     : It uses to if a user forgot his/her password so send a mail
+   * @param           : data, callback
+  */
+   forgotPassword = (data, callback) => {
+    RegistrationModel.findOne({ email: data.email })
+      .then((dataOne) => {
+        callback(null, dataOne);
       });
   }
 }

@@ -5,6 +5,7 @@
 */
 const bcrypt = require('bcrypt');
 const models = require('../models/registration');
+const helper = require('../utility/helper')
 
 class Service {
   /**
@@ -37,6 +38,28 @@ class Service {
         });
       } else {
         callback('user not found');
+      }
+    });
+  }
+
+  /**
+   * @description         : it acts as a midlleware for models and controllers
+   * @param    {data}     : taking data from controller
+   * @param   {callback}  : giving result to controller
+   * @method              : forgotPassword from models
+  */
+   forgotPassword = (data, callback) => {
+    models.forgotPassword(data, (error, result) => {
+      console.log(result);
+      if (result) {
+        const details = {
+          email: result.email,
+          _id: result._id,
+          role: result.role
+        };
+        error ? callback(error, null) : callback(null, helper.sendingEmail(details));
+      } else {
+        callback('Email does not exist');
       }
     });
   }
