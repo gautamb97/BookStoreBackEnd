@@ -8,6 +8,9 @@
 require('dotenv').config();
 const Joi = require('joi');
 const jwt = require('jsonwebtoken');
+const ejs = require('ejs');
+const nodemailer = require('nodemailer');
+const logger = require('../logger/logger');
 
 class Helper {
   /**
@@ -50,9 +53,42 @@ class Helper {
    * @module        : jwt
   */
   generatingToken = (data) => {
-    console.log(data);
     const token = jwt.sign({ email: data.email, id: data._id, role: data.role }, process.env.SECRET, { expiresIn: '24h' });
     return token;
+  };
+
+  /**
+ * @description   : sending an email through nodemailer
+ * @module        : nodemailer, ejs
+ * @file          : helper.js
+*/
+  sendingEmail = (data) => {
+    const transporter = nodemailer.createTransport({
+      service: 'gmail',
+      auth: {
+        user: process.env.EMAIL,
+        pass: process.env.PASSWORD,
+      },
+    });
+
+    ejs.renderFile('app/view/sendEmail.ejs', (error, result) => {
+      if (error) {
+        logger.log('error', error);
+      } else {
+        const message = {
+          from: process.env.EMAIL,
+          to: data.email,
+          subject: 'Re: Reset your password',
+          html: `${result}<button><a href="${'http://localhost:3000/resetPassword/'}${this.generatingToken(data)}">Click here</a></button>`,
+
+        };
+
+        transporter.sendMail(message, (err, info) => {
+          const sendEmailInfo = err ? logger.log('error', err) : logger.log('info', info);
+          return sendEmailInfo;
+        });
+      }
+    });
   };
 
 }
