@@ -21,5 +21,7 @@ module.exports = (app) => {
 
     app.post('/books', helper.verifyRole, booksController.addBook);
 
-    app.get('/books', helper.verifyToken, redis.redisCache ,booksController.getAllBooks)
+    app.get('/books', helper.verifyToken, redis.redisCache , booksController.getAllBooks)
+
+    app.put('/books/:bookId', helper.verifyRole, booksController.updateBook)
 }
