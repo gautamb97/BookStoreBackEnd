@@ -11,26 +11,29 @@ class BookService {
      * @description   : It is used to adding a book taking data from controller and sending to models
      * @param {data}  : it contains data which we are passing from body
     */
-    addBook = (data, callback) => {
-        models.addBook(data, callback)
+    addBook = (data) => {
+        return new Promise((resolve, reject) => {
+            const result = models.addBook(data);
+            result.then((book) => resolve(book)
+            ).catch((err) => reject(err));
+        });
     }
 
     /**
      * @description   : It is used to find all existing books taking data from controller
      *                  and sending to models
      * @param {data}  : it contains data which we are passing from body
-     * @returns       : notes which we are fetching
+     * @returns       : books which we are fetching
     */
-    getAllBooks = (data, callback) => {
+    getAllBooks = () => {
         const KEY = 'books';
-        models.getAllBooks(data, (error, result) => {
-            console.log('comming to service');
-            if (error) {
-                callback(error, null);
-            } else {
-                redis.setRedis(KEY, result);
-                callback(null, result);
+        return new Promise((resolve, reject) => {
+            const result = models.getAllBooks();
+            result.then((booksData) => {
+                redis.setRedis(KEY, booksData);
+                resolve(booksData)
             }
+            ).catch((err) => reject(err));
         });
     }
 
@@ -39,8 +42,12 @@ class BookService {
      *                  and sending to models
      * @param {data}  : it contains data which we are passing from body
     */
-    updateBook = (data, callback) => {
-        models.updateBook(data, callback)
+    updateBook = (data) => {
+        return new Promise((resolve, reject) => {
+            const result = models.updateBook(data);
+            result.then((book) => resolve(book)
+            ).catch((err) => reject(err));
+        });
     }
 
     /**
@@ -48,9 +55,13 @@ class BookService {
    *                  and sending to models
    * @param {data}  : it contains data which we are passing from body
   */
-  deleteBook = (data, callback) => {
-    models.deleteBook(data, callback)
-  }
+    deleteBook = (data) => {
+        return new Promise((resolve, reject) => {
+            const result = models.deleteBook(data);
+            result.then((book) => resolve(book)
+            ).catch((err) => reject(err));
+        });
+    }
 }
 
 module.exports = new BookService();

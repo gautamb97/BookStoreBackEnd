@@ -11,8 +11,8 @@ const bookSchema = mongoose.Schema({
   title: { type: String, required: true },
   image: { type: String, required: true, unique: true },
   quantity: { type: Number, required: true },
-  price: { type: Number, required: true},
-  description: { type: String, required: true}
+  price: { type: Number, required: true },
+  description: { type: String, required: true }
 
 }, {
   timestamps: true, versionKey: false
@@ -22,24 +22,26 @@ const BookModel = mongoose.model('Books', bookSchema);
 
 class BooksModel {
 
-     /**
- * @description     : It is use to create and save a new note in data base.
- * @param           : data, callback
- * @method          : save to save the coming data in data base
+  /**
+* @description     : It is use to create and save a new note in data base.
+* @param           : data
+* @method          : save to save the coming data in data base
+* @returns         : Promise
 */
-  addBook = (data, callback) => {
+  addBook = (data) => {
     const note = new BookModel({
-        author: data.author,
-        title: data.title,
-        image: data.image,
-        quantity: data.quantity,
-        price: data.price,
-        description: data.description,
+      author: data.author,
+      title: data.title,
+      image: data.image,
+      quantity: data.quantity,
+      price: data.price,
+      description: data.description,
     });
-    note.save()
-      .then((dataOne) => {
-        callback(null, dataOne);
-      });
+    return new Promise((resolve, reject) => {
+      note.save()
+        .then((book) => resolve(book))
+        .catch((err) => reject(err));
+    });
   }
 
   /**
@@ -47,42 +49,45 @@ class BooksModel {
    * @param {*} data
    * @param {*} callback
   */
-   getAllBooks = (data, callback) => {
-    BookModel.find()
-      .then((books) => {
-        callback(null, books);
-      });
+  getAllBooks = () => {
+    return new Promise((resolve, reject) => {
+      BookModel.find()
+        .then((book) => resolve(book))
+        .catch((err) => reject(err));
+    });
   }
 
   /**
    * @description   : It updating the existing book for the perticular user
    * @param {*} data
-   * @param {*} callback
+   * @returns       : Promise
   */
-   updateBook = (data, callback) => {
-    BookModel.findByIdAndUpdate(data.bookId, {
+  updateBook = (data) => {
+    return new Promise((resolve, reject) => {
+      BookModel.findByIdAndUpdate(data.bookId, {
         author: data.author,
         title: data.title,
         image: data.image,
         quantity: data.quantity,
         price: data.price,
         description: data.description,
-    })
-      .then((book) => {
-        callback(null, book);
-      });
+      })
+        .then((book) => resolve(book))
+        .catch((err) => reject(err));
+    });
   }
 
   /**
    * @description   : It delete the existing book from the db
    * @param {*} data
-   * @param {*} callback
+   * @returns       : Promise
   */
-   deleteBook = (data, callback) => {
-    BookModel.findByIdAndRemove(data)
-      .then((book) => {
-        callback(null, book);
-      });
+  deleteBook = (data) => {
+    return new Promise((resolve, reject) => {
+      BookModel.findByIdAndRemove(data)
+      .then((book) => resolve(book))
+        .catch((err) => reject(err));
+    })
   }
 
 }

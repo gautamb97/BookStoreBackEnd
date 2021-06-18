@@ -32,23 +32,25 @@ class BookController {
         });
         return;
       }
-      services.addBook(bookDetails, (error, data) => {
-        if (error) {
-          return res.status(400).send({
-            success: false,
-            message: 'Unable to add book',
-          });
-        }
+      const result = services.addBook(bookDetails);
+      result.then((data) => {
         return res.status(200).send({
           success: true,
           message: 'new book added successfully',
           data,
         });
-      });
+      }).catch((error) => {
+        return res.status(400).send({
+          success: false,
+          message: 'Unable to add book',
+          error,
+        });
+      })
     } catch (err) {
       res.status(500).send({
         success: false,
         message: 'Internal server error',
+        err,
       });
     }
   }
@@ -59,21 +61,21 @@ class BookController {
    * @param {httpresponse} res
    * @method       : getAllBooks from service.js
   */
-   getAllBooks = (req, res) => {
+  getAllBooks = (req, res) => {
     try {
-      services.getAllBooks(req, (error, result) => {
-        if (error) {
-          return res.status(400).send({
-            success: false,
-            message: 'Unable to get the books',
-          });
-        }
+      const result = services.getAllBooks()
+      result.then((books) => {
         return res.status(200).send({
           success: true,
           message: 'fetched books successfully',
-          result,
+          books,
         });
-      });
+      }).catch((error) => {
+        return res.status(400).send({
+          success: false,
+          message: 'Unable to get the books',
+        });
+      })
     } catch (err) {
       res.status(500).send({
         success: false,
@@ -88,17 +90,17 @@ class BookController {
    * @param {httpresponse} res
    * @method       : updateNote from service.js
   */
-   updateBook = (req, res) => {
+  updateBook = (req, res) => {
     try {
-        const bookDetails = {
-            author: req.body.author,
-            title: req.body.title,
-            image: req.body.image,
-            quantity: req.body.quantity,
-            price: req.body.price,
-            description: req.body.description,
-            bookId: req.params.bookId,
-          };
+      const bookDetails = {
+        author: req.body.author,
+        title: req.body.title,
+        image: req.body.image,
+        quantity: req.body.quantity,
+        price: req.body.price,
+        description: req.body.description,
+        bookId: req.params.bookId,
+      };
       const validationResult = validation.updateBookProperty.validate(bookDetails);
       if (validationResult.error) {
         res.status(400).send({
@@ -108,18 +110,18 @@ class BookController {
         });
         return;
       }
-      services.updateBook(bookDetails, (error) => {
-        if (error) {
-          return res.status(400).send({
-            success: false,
-            message: 'Unable to update book',
-          });
-        }
+      const result = services.updateBook(bookDetails);
+      result.then(() => {
         return res.status(200).send({
           success: true,
           message: 'book updated successfully',
         });
-      });
+      }).catch(() => {
+        return res.status(400).send({
+          success: false,
+          message: 'Unable to update book',
+        });
+      })
     } catch (err) {
       res.status(500).send({
         success: false,
@@ -134,21 +136,20 @@ class BookController {
    * @param {httpresponse} res
    * @method       : deleteBook from service.js
   */
-   deleteBook = (req, res) => {
+  deleteBook = (req, res) => {
     try {
-      services.deleteBook(req.params.noteId, (error, result) => {
-        if (error) {
-          return res.status(400).send({
-            success: false,
-            message: 'Unable to delete the book',
-          });
-        }
+      const result = services.deleteBook(req.params.noteId)
+      result.then(() => {
         return res.status(200).send({
           success: true,
           message: 'book deleted successfully',
-          result,
         });
-      });
+      }).catch(() => {
+        return res.status(400).send({
+          success: false,
+          message: 'Unable to delete the book',
+        });
+      })
     } catch (err) {
       res.status(500).send({
         success: false,
