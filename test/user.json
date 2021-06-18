@@ -1,17 +1,17 @@
 {
     "user": {
         "registration": {
-            "firstName": "Virat",
+            "firstName": "Vikram",
             "lastName": "Singh",
-            "email": "virat123@gmail.com",
-            "password": "Virat123#",
+            "email": "vikram123@gmail.com",
+            "password": "Vikram123#",
             "role": "user"
         },
         "adminRegistration": {
-            "firstName": "Soham",
+            "firstName": "Swara",
             "lastName": "Singh",
-            "email": "soham123@gmail.com",
-            "password": "Soham123#",
+            "email": "swara123@gmail.com",
+            "password": "Swarali123#",
             "role": "admin"
         },
         "registrationWithImproperDetails": {
@@ -19,13 +19,35 @@
             "email": "virat123@gmail.com",
             "password": "Virat123#"
         },
-        "login": {
+        "adminLogin": {
             "email": "www.gautam971997@gmail.com",
             "password": "Gautam123#"
         },
-        "loginWithImproperDetails": {
+        "adminLoginWithImproperDetails": {
             "email": "virat123@gmail.com",
             "password": "virat12"
+        },
+
+        "userLogin": {
+            "email": "deep@gmail.com",
+            "password": "Deep12345#"
+        },
+        "userLoginWithImproperDetails": {
+            "email": "deep@gmail.com",
+            "password": "virat1"
+        },
+        "forgotPasswordData": {
+            "email": "www.gautam971997@gmail.com"
+        },
+        "forgotPasswordWithImproperDetails": {
+            "email": "abc@gmail.com"
+        },
+        "resetPassword": {
+            "password": "Gautam123456#"
+        },
+        "credentials": {
+            "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Ind3dy5nYXV0YW05NzE5OTdAZ21haWwuY29tIiwiaWQiOiI2MGNiMTdhMjNhNmEyMzNmNjRmMDk4M2QiLCJyb2xlIjoiYWRtaW4iLCJpYXQiOjE2MjQwMTcxOTEsImV4cCI6MTYyNjA5MDc5MX0.jiSrw-2q1c5shVWj9WBqFgdx4FLWOmMqit2U7rkM1lQ",
+            "wrongToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Ind3dy5nYXV0YW05NzE5OTdAZ21haWwuY29tIiwi"
         }
     }
 }
