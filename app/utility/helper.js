@@ -98,8 +98,12 @@ verifyRole = (req, res, next) => {
         req.userData = tokenVerification;
         const userId = tokenVerification.id;
         req.userId = userId;
+        next();
+      } else {
+        res.status(401).send({
+          err: 'Authentication failed',
+        });
       }
-      next();
   } catch (err) {
     res.status(401).send({
       err: 'Unauthorized user',
