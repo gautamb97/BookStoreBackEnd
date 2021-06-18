@@ -197,4 +197,41 @@ describe('Book CRUD', () => {
                 });
         });
     })
+
+    describe('get all books', () => {
+        it('getBooks_whenProper_shouldSaveInDB', (done) => {
+            chai
+                .request(server)
+                .get('/books')
+                .set('token', token)
+                .send()
+                .end((err, res) => {
+                    res.should.have.status(200);
+                    done();
+                });
+        });
+
+        it('getBooks_whenTokenMissing_shouldNotSaveInDB', (done) => {
+            chai
+                .request(server)
+                .get('/books')
+                .send()
+                .end((err, res) => {
+                    res.should.have.status(401);
+                    done();
+                });
+        });
+
+        it('getBooks_whenWrongToken_shouldNotSaveInDB', (done) => {
+            chai
+                .request(server)
+                .get('/books')
+                .set('token', bookData.books.credential.wrongToken)
+                .send()
+                .end((err, res) => {
+                    res.should.have.status(401);
+                    done();
+                });
+        });
+    })
 });
