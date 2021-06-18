@@ -15,6 +15,21 @@
             "price": 520,
             "description": "based on real love story"
         },
+        "updateBookWithProperProperties": {
+            "author": "Rohit Sharma",
+            "title": "I love You",
+            "image": "RohitSharmaBookImages",
+            "quantity": 1,
+            "price": 520,
+            "description": "based on real love story"
+        },
+        "updateWithImProperProperties": {
+            "author": "Rohit Sharma",
+            "titel": "I love You",
+            "quantity": 1,
+            "price": 520,
+            "description": "based on real love story"
+        },
         "credential": {
             "wrongToken": "yJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Ind3dy5nYXV0YW05NzE5OTdAZ21haWwuY29tIiwiaWQiOiI2MGNiMTdhMjNhNmEyMzNmNjRmMDk4M2QiLCJyb2xlIjoiYWRtaW4iLCJpYXQiOjE2MjQ"
         }
