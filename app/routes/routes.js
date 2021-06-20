@@ -5,6 +5,7 @@
 */
 const controller = require('../controller/registration');
 const booksController = require('../controller/books');
+const cartController = require('../controller/cart')
 const redis = require('../utility/redisCache');
 const helper = require('../utility/helper');
 module.exports = (app) => {
@@ -23,9 +24,11 @@ module.exports = (app) => {
 
     app.post('/books', helper.verifyRole, booksController.addBook);
 
-    app.get('/books', helper.verifyToken, redis.redisCache , booksController.getAllBooks)
+    app.get('/books', helper.verifyToken, redis.redisCache , booksController.getAllBooks);
 
-    app.put('/books/:bookId', helper.verifyRole, booksController.updateBook)
+    app.put('/books/:bookId', helper.verifyRole, booksController.updateBook);
 
-    app.delete('/books/:bookId', helper.verifyRole, booksController.deleteBook)
+    app.delete('/books/:bookId', helper.verifyRole, booksController.deleteBook);
+
+    app.post('/addToCart', helper.verifyToken, cartController.addToCart);
 }
