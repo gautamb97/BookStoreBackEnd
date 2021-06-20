@@ -31,4 +31,6 @@ module.exports = (app) => {
     app.delete('/books/:bookId', helper.verifyRole, booksController.deleteBook);
 
     app.post('/addToCart', helper.verifyToken, cartController.addToCart);
+
+    app.delete('/removeBookFromCart', helper.verifyToken, cartController.removeBookFromCart);
 }
