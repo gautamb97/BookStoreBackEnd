@@ -297,4 +297,41 @@ describe('Cart', () => {
                 });
         });
     })
+
+    describe('remove book from cart', () => {
+        it('givenDetails_whenProper_shouldRemoveBookFromCart', (done) => {
+            chai
+                .request(server)
+                .delete('/removeBookFromCart')
+                .set('token', userToken)
+                .send(bookData.books.addBookWithProperProperties)
+                .end((err, res) => {
+                    res.should.have.status(200);
+                    done();
+                });
+        });
+
+        it('givenDetails_whenTokenMissing_shouldNotAbleToRemoveFromCart', (done) => {
+            chai
+                .request(server)
+                .delete('/removeBookFromCart')
+                .send(bookData.books.addBookWithProperProperties)
+                .end((err, res) => {
+                    res.should.have.status(401);
+                    done();
+                });
+        });
+
+        it('givenDetails_whenWrongToken_shouldNotAbleToAddToCart', (done) => {
+            chai
+                .request(server)
+                .delete('/removeBookFromCart')
+                .set('token', bookData.books.credential.wrongToken)
+                .send(bookData.books.addBookWithProperProperties)
+                .end((err, res) => {
+                    res.should.have.status(401);
+                    done();
+                });
+        });
+    })
 });
