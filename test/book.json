@@ -30,6 +30,12 @@
             "price": 520,
             "description": "based on real love story"
         },
+        "addToCartWithProperDetails": {
+            "bookId": "60cc757826afe60f70277846"
+        },
+        "addToCartWithImProperDetails": {
+            "bookId": "60cc757826afe60f702778"
+        },
         "credential": {
             "wrongToken": "yJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Ind3dy5nYXV0YW05NzE5OTdAZ21haWwuY29tIiwiaWQiOiI2MGNiMTdhMjNhNmEyMzNmNjRmMDk4M2QiLCJyb2xlIjoiYWRtaW4iLCJpYXQiOjE2MjQ"
         }

@@ -9,6 +9,7 @@ const loginData = require('./user.json')
 chai.should();
 
 let token = '';
+let userToken = '';
 
 describe('Book CRUD', () => {
     before((done) => {
@@ -228,6 +229,68 @@ describe('Book CRUD', () => {
                 .get('/books')
                 .set('token', bookData.books.credential.wrongToken)
                 .send()
+                .end((err, res) => {
+                    res.should.have.status(401);
+                    done();
+                });
+        });
+    })
+
+});
+
+describe('Cart', () => {
+    beforeEach((done) => {
+        chai
+            .request(server)
+            .post('/userLogin')
+            .send(loginData.user.userLogin)
+            .end((err, res) => {
+                userToken = res.body.token
+                done();
+            });
+    });
+    describe('add book to cart', () => {
+        it('givenDetails_whenProper_shouldAddTheBookToCart', (done) => {
+            chai
+                .request(server)
+                .post('/addToCart')
+                .set('token', userToken)
+                .send(bookData.books.addBookWithProperProperties)
+                .end((err, res) => {
+                    res.should.have.status(200);
+                    done();
+                });
+        });
+
+        it.skip('givenDetails_whenImProper_shouldNotAbleToAddToCart', (done) => {
+            chai
+                .request(server)
+                .post('/addToCart')
+                .set('token', userToken)
+                .send(bookData.books.addBookWithImProperProperties)
+                .end((err, res) => {
+                    res.should.have.status(400);
+                    done();
+                });
+        });
+
+        it('givenDetails_whenTokenMissing_shouldNotAbleToAddToCart', (done) => {
+            chai
+                .request(server)
+                .post('/addToCart')
+                .send(bookData.books.addBookWithProperProperties)
+                .end((err, res) => {
+                    res.should.have.status(401);
+                    done();
+                });
+        });
+
+        it('givenDetails_whenWrongToken_shouldNotAbleToAddToCart', (done) => {
+            chai
+                .request(server)
+                .post('/addToCart')
+                .set('token', bookData.books.credential.wrongToken)
+                .send(bookData.books.addBookWithProperProperties)
                 .end((err, res) => {
                     res.should.have.status(401);
                     done();
