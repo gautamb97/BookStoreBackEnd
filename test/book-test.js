@@ -334,4 +334,41 @@ describe('Cart', () => {
                 });
         });
     })
+
+    describe('get all carts', () => {
+        it('getCarts_whenProper_shouldReturnTheCarts', (done) => {
+            chai
+                .request(server)
+                .get('/carts')
+                .set('token', userToken)
+                .send()
+                .end((err, res) => {
+                    res.should.have.status(200);
+                    done();
+                });
+        });
+
+        it('getCarts_whenTokenMissing_shouldNotReturnTheCarts', (done) => {
+            chai
+                .request(server)
+                .get('/carts')
+                .send()
+                .end((err, res) => {
+                    res.should.have.status(401);
+                    done();
+                });
+        });
+
+        it('getCarts_whenWrongToken_shouldNotSaveInDB', (done) => {
+            chai
+                .request(server)
+                .get('/carts')
+                .set('token', bookData.books.credential.wrongToken)
+                .send()
+                .end((err, res) => {
+                    res.should.have.status(401);
+                    done();
+                });
+        });
+    })
 });
