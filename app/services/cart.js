@@ -40,6 +40,20 @@ class Service {
         .catch((err) => reject({ err }));
     });
   }
+
+  /**
+   * @description   : It is used to place order from cart taking data
+   *                  from controller and sending to models
+   * @param {data}  : it contains data which we are passing from body
+   * @returns       : Promise
+  */
+   placeOrder = (data) => {
+    return new Promise((resolve, reject) => {
+      const result = models.placeOrder(data);
+      result.then((book) => resolve({ book }))
+        .catch((err) => reject({ err }));
+    });
+  }
 }
 
 module.exports = new Service();
