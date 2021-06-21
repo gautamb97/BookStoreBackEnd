@@ -33,4 +33,6 @@ module.exports = (app) => {
     app.post('/addToCart', helper.verifyToken, cartController.addToCart);
 
     app.delete('/removeBookFromCart', helper.verifyToken, cartController.removeBookFromCart);
+
+    app.get('/carts', helper.verifyToken, cartController.getAllCarts);
 }
