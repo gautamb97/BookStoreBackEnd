@@ -22,7 +22,7 @@
         "application/json"
     ],
     "paths": {
-        "/admin/registration": {
+        "/adminRegistration": {
             "post": {
                 "tags": [
                     "BookStore"
@@ -48,7 +48,7 @@
                 }
             }
         },
-        "/user/registration": {
+        "/userRegistration": {
             "post": {
                 "tags": [
                     "BookStore"
@@ -74,7 +74,7 @@
                 }
             }
         },
-        "/login": {
+        "/userLogin": {
             "post": {
                 "tags": [
                     "BookStore"
@@ -99,6 +99,301 @@
                     }
                 }
             }
+        },
+        "/adminLogin": {
+            "post": {
+                "tags": [
+                    "BookStore"
+                ],
+                "summary": "login to BookStore",
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "description": "login"
+                    }
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "logged in successfully"
+                    },
+                    "400": {
+                        "description": "login failed"
+                    }
+                }
+            }
+        },
+        "/forgotPassword": {
+            "post": {
+                "tags": [
+                    "BookStore"
+                ],
+                "summary": "Forgot Password",
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "description": "forgot password"
+                    }
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "sent mail successfully"
+                    },
+                    "400": {
+                        "description": "unable to send mail"
+                    }
+                }
+            }
+        },
+        "/resetPassword": {
+            "post": {
+                "tags": [
+                    "BookStore"
+                ],
+                "summary": "Reset Password in FundooNotes",
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "description": "reset password"
+                    }
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "reset password successfully"
+                    },
+                    "400": {
+                        "description": "failed to reset password"
+                    }
+                }
+            }
+        },
+        "/books": {
+            "post": {
+                "tags": [
+                    "BookStore"
+                ],
+                "summary": "Add book in BookStore",
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "description": "add book"
+                    }
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "book added successfully"
+                    },
+                    "400": {
+                        "description": "failed to add book"
+                    }
+                },
+                "security": [
+                    {
+                        "JWT": []
+                    }
+                ]
+            },
+            "get": {
+                "tags": [
+                    "BookStore"
+                ],
+                "summary": "Get all books from Bookstore",
+                "parameters": [
+                    
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "got all books successfully"
+                    },
+                    "400": {
+                        "description": "failed to get books"
+                    }
+                },
+                "security": [
+                    {
+                        "JWT": []
+                    }
+                ]
+            }
+        },
+        "/books/{id}":{
+            "parameters": [
+                {
+                    "name": "id",
+                    "in": "path",
+                    "required": true,
+                    "description": "ID of the person that we want to see",
+                    "type":"string"
+                }
+            ],
+            "put": {
+                "tags": [
+                    "BookStore"
+                ],
+                "summary": "Update book in BookStore",
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "description": "update an existing book"
+                    }
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "updated book successfully"
+                    },
+                    "400": {
+                        "description": "failed to update book"
+                    }
+                },
+                "security": [
+                    {
+                        "JWT": []
+                    }
+                ]
+            },
+            "delete": {
+                "tags": [
+                    "BookStore"
+                ],
+                "summary": "delete book from Bookstore",
+                "parameters": [
+                    
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "deleted book successfully"
+                    },
+                    "400": {
+                        "description": "failed to delete book"
+                    }
+                },
+                "security": [
+                    {
+                        "JWT": []
+                    }
+                ]
+            }
+        },
+        "/addToCart": {
+            "post": {
+                "tags": [
+                    "BookStore"
+                ],
+                "summary": "Add book to cart in BookStore",
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "description": "add book to cart"
+                    }
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "book added to cart successfully"
+                    },
+                    "400": {
+                        "description": "failed to add book"
+                    }
+                },
+                "security": [
+                    {
+                        "JWT": []
+                    }
+                ]
+            }
+        },
+        "/removeBookFromCart": {
+                "delete": {
+                    "tags": [
+                        "BookStore"
+                    ],
+                    "summary": "Remove book from cart of BookStore",
+                    "parameters": [
+                        {
+                            "in": "body",
+                            "name": "body",
+                            "description": "remove book from cart"
+                        }
+                    ],
+                    "produces": [
+                        "application/json"
+                    ],
+                    "responses": {
+                        "200": {
+                            "description": "book removed from cart successfully"
+                        },
+                        "400": {
+                            "description": "failed to remove cart"
+                        }
+                    },
+                    "security": [
+                        {
+                            "JWT": []
+                        }
+                    ]
+                }
+            },
+            "/carts": {
+                "get": {
+                    "tags": [
+                        "BookStore"
+                    ],
+                    "summary": "Get all carts from Bookstore",
+                    "parameters": [
+                        
+                    ],
+                    "produces": [
+                        "application/json"
+                    ],
+                    "responses": {
+                        "200": {
+                            "description": "got all carts successfully"
+                        },
+                        "400": {
+                            "description": "failed to get carts"
+                        }
+                    },
+                    "security": [
+                        {
+                            "JWT": []
+                        }
+                    ]
+                }
+            }
+    },
+    "securityDefinitions": {
+        "JWT": {
+            "type": "apiKey",
+            "name": "token",
+            "in": "header"
         }
     }
 }
