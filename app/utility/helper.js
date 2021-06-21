@@ -94,16 +94,20 @@ class Helper {
 verifyRole = (req, res, next) => {
   try {
     const tokenVerification = jwt.verify(req.headers.token, process.env.SECRET);
-      if (tokenVerification.role === 'admin') {
+    client.get('role', (err, result) => {
+      if (err) throw err;
+      if (tokenVerification.role === 'admin' && result === 'admin') {
         req.userData = tokenVerification;
         const userId = tokenVerification.id;
         req.userId = userId;
-        next();
-      } else {
-        res.status(401).send({
-          err: 'Authentication failed',
-        });
       }
+      else {
+          res.status(401).send({
+            err: 'Authentication failed',
+          });
+        }
+      next();
+    });
   } catch (err) {
     res.status(401).send({
       err: 'Unauthorized user',
@@ -119,10 +123,11 @@ checkRole = (role) => {
     }
     models.login(loginData, (error, data) => {
       if(role === data.role) {
+        client.setex('role', 7200, role);
         next();
         }
         else {
-          res.status(401).send({
+          res.status(400).send({
             err: 'Authentication failed',
           });
         }
