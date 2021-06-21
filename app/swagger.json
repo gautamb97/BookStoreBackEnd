@@ -387,6 +387,37 @@
                         }
                     ]
                 }
+            },
+            "/placeOrder": {
+                "put": {
+                    "tags": [
+                        "BookStore"
+                    ],
+                    "summary": "Place Order",
+                    "parameters": [
+                        {
+                            "in": "body",
+                            "name": "body",
+                            "description": "cart id which you want to place order"
+                        }
+                    ],
+                    "produces": [
+                        "application/json"
+                    ],
+                    "responses": {
+                        "200": {
+                            "description": "order placed successfully"
+                        },
+                        "400": {
+                            "description": "failed in placing order"
+                        }
+                    },
+                    "security": [
+                        {
+                            "JWT": []
+                        }
+                    ]
+                }
             }
     },
     "securityDefinitions": {
