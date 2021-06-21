@@ -138,7 +138,7 @@ class BookController {
   */
   deleteBook = (req, res) => {
     try {
-      const result = services.deleteBook(req.params.noteId)
+      const result = services.deleteBook(req.params.bookId)
       result.then(() => {
         return res.status(200).send({
           success: true,

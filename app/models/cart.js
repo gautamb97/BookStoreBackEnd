@@ -50,10 +50,21 @@ class CartModels {
    * @returns       : Promise
   */
   removeBookFromCart = (data) => {
-      console.log(data)
     return new Promise((resolve, reject) => {
       CartModel.findOneAndUpdate({ userId : data.userId }, { $pull: { bookId: data.bookId } })
         .then((book) => resolve(book))
+        .catch((err) => reject(err));
+    });
+  }
+
+  /**
+     * @description     : getting all carts from the bookStoreApp
+     * @returns         : Promise
+    */
+   getAllCarts = () => {
+    return new Promise((resolve, reject) => {
+      CartModel.find()
+        .then((books) => resolve(books))
         .catch((err) => reject(err));
     });
   }
