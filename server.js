@@ -9,6 +9,7 @@ require('dotenv').config();
 const swaggerUI = require('swagger-ui-express');
 const swaggerDoc = require('./app/swagger.json');
 require('./config/dbConfig');
+require('./config/redisConfig');
 const logger = require('./app/logger/logger')
 
 const app = express();
@@ -29,3 +30,4 @@ app.listen(process.env.PORT, () => {
   logger.log('info','Server is listening on port 3000');
 });
 
+module.exports = app;
