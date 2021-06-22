@@ -49,39 +49,51 @@ class CartModels {
    * @param {*} data
    * @returns       : Promise
   */
-  removeBookFromCart = (data) => {
-    return new Promise((resolve, reject) => {
-      CartModel.findOneAndUpdate({ userId : data.userId }, { $pull: { bookId: data.bookId } })
-        .then((book) => resolve(book))
-        .catch((err) => reject(err));
-    });
-  }
+    removeBookFromCart = (data) => {
+        return new Promise((resolve, reject) => {
+            CartModel.findOneAndUpdate({ userId: data.userId }, { $pull: { bookId: data.bookId } })
+                .then((book) => resolve(book))
+                .catch((err) => reject(err));
+        });
+    }
 
-  /**
-     * @description     : getting all carts from the bookStoreApp
-     * @returns         : Promise
-    */
-   getAllCarts = () => {
-    return new Promise((resolve, reject) => {
-      CartModel.find()
-        .then((books) => resolve(books))
-        .catch((err) => reject(err));
-    });
-  }
+    /**
+       * @description     : getting all carts from the bookStoreApp
+       * @returns         : Promise
+      */
+    getAllCarts = () => {
+        return new Promise((resolve, reject) => {
+            CartModel.find()
+                .then((books) => resolve(books))
+                .catch((err) => reject(err));
+        });
+    }
 
-   /**
-   * @description   : It changes the isPurchased to true in cart
-   * @param {*} data
-   * @returns       : Promise
-  */
+    /**
+       * @description     : getting a cart from the bookStoreApp
+       * @returns         : Promise
+      */
+     getCart = (data) => {
+        return new Promise((resolve, reject) => {
+            CartModel.findOne({ userId: data.userId})
+                .then((books) => resolve(books))
+                .catch((err) => reject(err));
+        });
+    }
+
+    /**
+    * @description   : It changes the isPurchased to true in cart
+    * @param {*} data
+    * @returns       : Promise
+   */
     placeOrder = (data) => {
         return new Promise((resolve, reject) => {
-          CartModel.findByIdAndUpdate(data.cartId, {userId: data.userId}, { isPurchased: true })
-            .then((cart) => resolve(cart))
-            .catch((err) => reject(err));
+            CartModel.findByIdAndUpdate(data.cartId, { userId: data.userId }, { isPurchased: true })
+                .then((cart) => resolve(cart))
+                .catch((err) => reject(err));
         });
-      }
-  
+    }
+
 }
 
 module.exports = new CartModels();
