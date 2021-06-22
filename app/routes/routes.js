@@ -36,5 +36,7 @@ module.exports = (app) => {
 
     app.get('/carts', helper.verifyToken, cartController.getAllCarts);
 
-    app.put('/placeOrder', helper.verifyToken, cartController.placeOrder);
+    app.get('/cart/:userId', helper.verifyToken, cartController.getCart);
+
+    app.put('/placeOrder/:cartId', helper.verifyToken, cartController.placeOrder);
 }
