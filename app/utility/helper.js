@@ -158,7 +158,7 @@ checkRole = (role) => {
           from: process.env.EMAIL,
           to: data.email,
           subject: 'Re: Reset your password',
-          html: `${result}<button><a href="${'http://localhost:3000/resetPassword/'}${this.generatingToken(data)}">Click here</a></button>`,
+          html: `${result}<button><a href="${'http://localhost:4200/resetPassword/'}${this.generatingToken(data)}">Click here</a></button>`,
 
         };
 

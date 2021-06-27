@@ -4,6 +4,7 @@
  * @author        : Gautam Biswal <gautam971997@gmail.com>
 */
 const redis = require('redis');
+const models = require('../models/books')
 
 const client = redis.createClient();
 
@@ -38,6 +39,21 @@ redisCache(req, res, next) {
         next();
       }
     });
+  }
+
+  updateRedis(data) {
+    const KEY = 'books';
+    // models.getAllNotes(data, (error, result) => {
+    //   (result) ? setRedis(KEY, result) : console.log(error);
+    // });
+    return new Promise((resolve, reject) => {
+      const result = models.getAllBooks();
+      result.then((booksData) => {
+          this.setRedis(KEY, booksData);
+          resolve(booksData)
+      }
+      ).catch((err) => reject(err));
+  });
   }
 
 }

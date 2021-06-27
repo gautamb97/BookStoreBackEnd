@@ -388,6 +388,39 @@
                     ]
                 }
             },
+            "/cart/{id}": {
+                "get": {
+                    "tags": [
+                        "BookStore"
+                    ],
+                    "summary": "Get cart from Bookstore",
+                    "parameters": [
+                        {
+                            "name": "id",
+                            "in": "path",
+                            "required": true,
+                            "description": "ID of the user that whose cart we want to see",
+                            "type":"string"
+                        }
+                    ],
+                    "produces": [
+                        "application/json"
+                    ],
+                    "responses": {
+                        "200": {
+                            "description": "got the cart successfully"
+                        },
+                        "400": {
+                            "description": "failed to get cart"
+                        }
+                    },
+                    "security": [
+                        {
+                            "JWT": []
+                        }
+                    ]
+                }
+            },
             "/placeOrder": {
                 "put": {
                     "tags": [

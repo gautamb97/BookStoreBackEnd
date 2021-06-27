@@ -8,11 +8,14 @@ const express = require('express');
 require('dotenv').config();
 const swaggerUI = require('swagger-ui-express');
 const swaggerDoc = require('./app/swagger.json');
+const cors = require('cors');
 require('./config/dbConfig');
 require('./config/redisConfig');
 const logger = require('./app/logger/logger')
 
 const app = express();
+
+app.use(cors());
 
 app.use(express.urlencoded({ extended: true }));
 

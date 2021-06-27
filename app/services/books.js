@@ -14,7 +14,10 @@ class BookService {
     addBook = (data) => {
         return new Promise((resolve, reject) => {
             const result = models.addBook(data);
-            result.then((book) => resolve(book)
+            result.then((book) => {
+                redis.updateRedis(data);
+                resolve(book);
+            }
             ).catch((err) => reject(err));
         });
     }
