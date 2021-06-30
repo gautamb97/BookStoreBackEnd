@@ -68,6 +68,15 @@ class Controller {
         email: req.body.email,
         password: req.body.password,
       };
+      const validationResult = helper.loginSchema.validate(loginCredentials);
+      if (validationResult.error) {
+        res.status(400).send({
+          success: false,
+          error: 'Email or Password field should not be empty',
+          data: validationResult,
+        });
+        return;
+      }
       services.login(loginCredentials, (error, data) => {
         if (error) {
           return res.status(400).send({

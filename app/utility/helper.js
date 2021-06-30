@@ -44,6 +44,15 @@ class Helper {
       .required()
   });
 
+  loginSchema = Joi.object({
+
+    email: Joi.string()
+      .required(),
+
+    password: Joi.string()
+      .required()
+  });
+
   setRole = (role) => {
     return (req, res, next) => {
       req.role = role;
