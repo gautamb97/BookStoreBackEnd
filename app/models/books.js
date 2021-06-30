@@ -78,6 +78,18 @@ class BooksModel {
   }
 
   /**
+   * @description   : It fetch the existing book from the db
+   * @param {*} data
+   * @returns       : Promise
+  */
+   getBook = (data) => {
+    return new Promise((resolve, reject) => {
+      BookModel.findById(data)
+      .then((book) => resolve(book))
+        .catch((err) => reject(err));
+    })
+  }
+  /**
    * @description   : It delete the existing book from the db
    * @param {*} data
    * @returns       : Promise

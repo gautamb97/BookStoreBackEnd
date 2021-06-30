@@ -54,6 +54,19 @@ class BookService {
     }
 
     /**
+   * @description   : It is used to fetch an existing book taking data from controller
+   *                  and sending to models
+   * @param {data}  : it contains data which we are passing from body
+  */
+     getBook = (data) => {
+        return new Promise((resolve, reject) => {
+            const result = models.getBook(data);
+            result.then((book) => resolve(book)
+            ).catch((err) => reject(err));
+        });
+    }
+
+    /**
    * @description   : It is used to delete an existing book taking data from controller
    *                  and sending to models
    * @param {data}  : it contains data which we are passing from body

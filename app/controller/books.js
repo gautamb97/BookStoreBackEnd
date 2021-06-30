@@ -131,6 +131,35 @@ class BookController {
   }
 
   /**
+   * @description : It is get an existing book from book store
+   * @param {httprequest} req
+   * @param {httpresponse} res
+   * @method       : getBook from service.js
+  */
+   getBook = (req, res) => {
+    try {
+      const result = services.getBook(req.params.bookId)
+      result.then((data) => {
+        return res.status(200).send({
+          success: true,
+          message: 'book fetched successfully',
+          data,
+        });
+      }).catch(() => {
+        return res.status(400).send({
+          success: false,
+          message: 'Unable to fetch the book',
+        });
+      })
+    } catch (err) {
+      res.status(500).send({
+        success: false,
+        message: 'Internal server error',
+      });
+    }
+  }
+
+  /**
    * @description : It is deleting an existing book from book store
    * @param {httprequest} req
    * @param {httpresponse} res
